@@ -6,10 +6,6 @@ variable "aws_region" {
   description = "The AWS region in which all resources will be created."
 }
 
-variable "aws_account_id" {
-  description = "The AWS account to deploy into."
-}
-
 # ---------------------------------------------------------------------------------------------------------------------
 # Standard Module Required Variables
 # ---------------------------------------------------------------------------------------------------------------------
@@ -26,26 +22,6 @@ variable "environment" {
   description = "The environment name in which the infrastructure is located. (e.g. dev, test, beta, prod)"
 }
 
-variable "development_team_email" {
-  description = "The development team email address that is responsible for this resource(s)."
-}
-
-variable "infrastructure_team_email" {
-  description = "The infrastructure team email address that is responsible for this resource(s)."
-}
-
-variable "infrastructure_engineer_email" {
-  description = "The infrastructure engineer email address that is responsible for this resource(s)."
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
-# Infrastructure Tags
-# ---------------------------------------------------------------------------------------------------------------------
-
-variable "app_tags" {
-  type    = map(string)
-  default = {}
-}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Lambda Variables

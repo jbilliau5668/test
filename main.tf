@@ -20,9 +20,6 @@ locals {
     app-id                        = var.app_id
     application                   = lower(var.application_name)
     environment                   = lower(var.environment)
-    development-team-email        = lower(var.development_team_email)
-    infrastructure-team-email     = lower(var.infrastructure_team_email)
-    infrastructure-engineer-email = lower(var.infrastructure_engineer_email)
   }
 }
 
@@ -40,7 +37,7 @@ resource "aws_ecr_repository" "default" {
 resource "aws_ecr_repository_policy" "default" {
   repository = aws_ecr_repository.default.name
 
-  
+
   policy = <<EOF
 {
   "Version": "2008-10-17",
@@ -91,7 +88,7 @@ EOF
 
 resource "aws_iam_role" "default" {
   name = "role-${local.application_string}-${var.aws_region}"
-  tags = merge(var.app_tags, local.iac_tags)
+  tags = local.iac_tags
 
   assume_role_policy = <<EOF
 {
