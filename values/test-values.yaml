@@ -1,0 +1,83 @@
+#-----------------------------------------------------
+#------------------Global Variables-------------------
+#-----------------------------------------------------
+
+global:
+  accountnumber: "418023852230"
+  aws_region: "us-east-2"
+  app_id: "302040"
+  application_name: "whale"
+  environment: "${ENVIRONMENT_NAME}"
+  development_team_email: it_team_sudo
+
+  environmentVariables:
+    ASPNETCORE_ENVIRONMENT: "${ENVIRONMENT_NAME}"
+
+  healthCheck:
+    path: /
+    port: 8080
+
+#----------------------------------------------------
+#----------------Deployment Variables-----------------
+#-----------------------------------------------------
+
+  deployment:
+    type: "simple"
+    primary:
+      replicaCount: 1
+      weight: "100"
+      image:
+        - repository: ${ECRIMAGE}
+
+#-----------------------------------------------------
+#------------------Service Variables------------------
+#-----------------------------------------------------
+
+# Set to "true" to create an endpoint that exposes your application via http/https. Set to "false" for a worker process with no listener.
+
+  service:
+    enabled: true
+    targetport: 8080
+
+#-----------------------------------------------------
+#--------------Authentication Variables---------------
+#-----------------------------------------------------
+
+# Authentication - Use this section to define what service accounts (inside the same cluster) or external tokens are allowed to access your api
+
+  auth:
+    internal:
+    - namespace:
+      name: rhino
+      serviceaccounts:
+      - name: "sleep"
+        methods: ["*"]
+        paths: ["/*"]
+    external:
+    - type: ping
+      tokens:
+      - audience: "whale.jasoneks.foc.zone"
+
+#-----------------------------------------------------
+#----------External Ingress Variables-----------------
+#-----------------------------------------------------
+
+# Use this section to define whether or not to expose your application to the internet and the external_url to use.
+
+  external_ingress:
+    enabled: true
+    type: istio
+    external_url: "test-whale.jasoneks.foc.zone"
+
+#-----------------------------------------------------
+#--------External Egress (Firewall) Variables---------
+#-----------------------------------------------------
+
+# Use this sction to define what hostname:port combinations your application needs to hit
+
+  egress:
+    enabled: false
+    hosts:
+      mysql: k8test.c3fznfgz2gre.us-east-2.rds.amazonaws.com:3306
+      vendor: www.salesforce.com:443
+      onprem: www.rockfin.com:443
