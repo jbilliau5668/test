@@ -6,12 +6,12 @@ global:
   accountnumber: "418023852230"
   aws_region: "us-east-2"
   app_id: "302040"
-  application_name: "whale"
-  environment: "${ENVIRONMENT_NAME}"
+  application_name: "harness"
+  environment: "test"
   development_team_email: it_team_sudo
 
   environmentVariables:
-    ASPNETCORE_ENVIRONMENT: "${ENVIRONMENT_NAME}"
+    ASPNETCORE_ENVIRONMENT: "test"
 
   healthCheck:
     path: /
@@ -27,7 +27,7 @@ global:
       replicaCount: 1
       weight: "100"
       image:
-        - repository: ${ECRIMAGE}
+        - repository: 418023852230.dkr.ecr.us-east-2.amazonaws.com/training-ecr:fd4f5d0a1dd5b9268caa3ddb7b0120cc291ebc79
 
 #-----------------------------------------------------
 #------------------Service Variables------------------
@@ -67,7 +67,7 @@ global:
   external_ingress:
     enabled: true
     type: istio
-    external_url: "test-whale.jasoneks.foc.zone"
+    external_url: "test1-whale.jasoneks.foc.zone"
 
 #-----------------------------------------------------
 #--------External Egress (Firewall) Variables---------
